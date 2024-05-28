@@ -1,0 +1,36 @@
+<h2 class="title has-text-centered">結帳</h2>
+<div class="container is-grid is-justify-content-center">
+  <%= render :partial => 'carts/cart' %>
+  <hr>
+  <h2 class="title is-5">收件人資訊</h2>
+
+  <%= form_with(model: @order) do |form| %>
+    <div class="columns">
+      <div class="column">
+        <div class="field">
+          <%= form.label :recipient, '收件人', class: 'label' %>
+          <%= form.text_field :recipient, class: 'input' %>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <%= form.label :tel, '電話', class: 'label' %>
+          <%= form.text_field :tel, class: 'input' %>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <%= form.label :address, '地址', class: 'label' %>
+          <%= form.text_field :address, class: 'input' %>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <%= form.label :note, '備註說明', class: 'label' %>
+      <%= form.text_area :note, class: 'textarea' %>
+    </div>
+    <div class="field  navbar-end">
+      <%= form.submit '使用 Line Pay 結帳', class: 'button is-primary has-text-white', data: { confirm: '確認送出' } %>
+    </div>
+  <% end %>
+</div>

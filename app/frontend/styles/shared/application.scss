@@ -1,0 +1,26 @@
+@import 'bulma';
+
+.bg-pink {
+  background-color: #f7ae9f;
+}
+
+.has-text-primary {
+  color: #f7ae9f !important;
+}
+
+.is-primary {
+  background-color: #f7ae9f;
+}
+
+.is-pink {
+  color: #f7ae9f;
+}
+
+.navbar-brand{
+  a.navbar-item:focus,
+  a.navbar-item:focus-within,
+  a.navbar-item:hover {
+    --bulma-navbar-item-background-l-delta: none;
+    --bulma-navbar-item-background-a: none;
+  }
+}

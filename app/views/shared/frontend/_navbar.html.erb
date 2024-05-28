@@ -1,0 +1,66 @@
+<div class="container is-max-desktop">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <%= image_pack_tag 'logo.png' %>
+      </a>
+      <a role="button" class="navbar-burger has-text-dark" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start is-align-items-center">
+        <div class="field has-addons">
+          <div class="control">
+            <input class="input" type="text" placeholder="搜尋關鍵字">
+          </div>
+          <div class="control">
+            <button class="button bg-pink has-text-white">
+              搜尋 &nbsp; <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <% if user_signed_in? %>
+              <%= link_to cart_path, class:'has-text-dark' do %>
+                <button class="is-relative" data-controller="cart"><i class="fa-solid fa-cart-shopping" style="font-size: 1.2rem"></i>
+                  <span class="tag bg-pink is-absolute has-text-white" style="position: absolute;top: 0%;left: 100%;transform: translate(-50%, -50%) !important;border-radius: 50rem;font-size: 0.5rem" data-cart-target="tagContainer">
+                    <span data-cart-target="count" data-action="addToCart@document->cart#updateCount"><%= current_cart.items.count %></span>
+                  </span>
+                </button>
+              <% end %>
+              
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  <i class="fas fa-user"></i>&nbsp;
+                  <% if current_user.name %>
+                    <%= current_user.name %>
+                  <% else %>
+                    <%= current_user.email %>
+                  <% end %>
+                </a>
+                <div class="navbar-dropdown">
+                  <%= link_to "個人資料" , edit_user_registration_path, class: 'navbar-item' %>
+                  <%= link_to "訂單紀錄" , orders_path, class: 'navbar-item' %>
+                    <hr class="navbar-divider">
+                    <%= link_to "登出" , destroy_user_session_path, method: :delete, class: 'navbar-item' %>
+                </div>
+              </div>
+            <% else %>
+              <%= link_to '註冊' ,new_user_registration_path, class:'button is-dark' %>
+              <%= link_to '登入' ,new_user_session_path, class:'button is-light' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

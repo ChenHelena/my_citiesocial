@@ -1,0 +1,18 @@
+<h2 class="title has-text-centered">購物車</h2>
+
+<div class="container is-grid is-justify-content-center">
+  <%= render 'cart' %>
+  <% if current_cart.empty? %>
+  <% else %>
+    <div class="columns">
+      <div class="column is-6">
+        <%= link_to '繼續選購' , root_path, class:'button is-block' %>
+      </div>
+      <div class="column is-6">
+        <%= link_to '結帳' , checkout_cart_path, class:'button is-danger is-block has-text-white' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+

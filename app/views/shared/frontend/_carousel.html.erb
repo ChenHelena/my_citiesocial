@@ -1,0 +1,9 @@
+<!-- Start Carousel -->
+<div id="carousel-demo" class="carousel">
+  <% @products.each_with_index do |product, index| %>
+    <div class="item-<%= index + 1%>">
+      <%= image_tag product.cover_image.variant(resize: '770x520' ) if product.cover_image.attached? %>
+    </div>
+  <% end %>
+</div>
+<!-- End Carousel -->

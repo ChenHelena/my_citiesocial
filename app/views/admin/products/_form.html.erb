@@ -1,0 +1,81 @@
+<%= form_with model: [:admin, product] do |form| %>
+  <%= form.file_field :cover_image %>
+  <br>
+  <br>
+  <%= image_tag form.object.cover_image.variant(resize: '600x400') if form.object.cover_image.attached? %>
+  <div class="columns">
+    <div class="column is-6">
+      <div class="field">
+        <%= form.label :name, '商品名稱', class: 'label' %>
+        <%= form.text_field :name, class: 'input is-medium' %>
+      </div>
+    </div>
+    <div class="column is-3">
+      <div class="field">
+        <%= form.label :vendor_id, '廠商', class: 'label' %>
+        <div class="select is-medium is-fullwidth">
+          <%= form.collection_select :vendor_id, Vendor.available, :id, :title %>
+        </div>
+      </div>
+    </div>
+    <div class="column is-3">
+      <div class="field">
+        <%= form.label :category_id, '分類', class: 'label' %>
+        <div class="select is-medium is-fullwidth">
+          <%= form.collection_select :category_id, Category.all, :id, :name %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <%= form.label :list_price, '定價', class: 'label' %>
+        <%= form.number_field :list_price, class: 'input is-medium' %>
+      </div>
+    </div>
+    <div class="column">
+      <div class="field">
+        <%= form.label :sell_price, '售價', class: 'label' %>
+        <%= form.number_field :sell_price, class: 'input is-medium' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :on_the_market %>
+    <%= form.label :on_the_market, '是否上架？', class: 'checkbox' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description, '商品描述', class: 'label' %>
+    <%= form.rich_text_area :description %>
+  </div>
+  
+  <hr>
+  <%= form.label :skus, '庫存項目' , class: 'label' %>
+  <div data-controller="product">
+
+    <template data-product-target="template">
+      <%= form.fields_for :skus, Sku.new, child_index: 'NEW_RECORD' do |sku| %>
+        <%= render 'sku_fields' , form: sku %>
+      <% end %>
+    </template>
+
+    <%= form.fields_for :skus do |sku| %>
+      <%= render 'sku_fields' , form: sku %>
+    <% end %>
+
+    <div data-product-target="link">
+      <%= link_to '新增品項' , '#' , class:'button is-light is-small', data: { action: 'product#addSku' } %>
+    </div>
+  </div>
+
+  
+  
+
+  
+
+  <%= form.submit class: 'button is-primary is-medium' %>
+<% end %>

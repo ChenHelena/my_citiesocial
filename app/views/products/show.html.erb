@@ -1,0 +1,55 @@
+<section class="container">
+
+  <div class="columns">
+    <div class="column is-7">
+      <figure class="image">
+        <%= image_tag @product.cover_image.variant(resize: '770x520') if @product.cover_image.attached? %>
+      </figure>
+      <hr>
+      <article class="content">
+        <h4>產品特色</h4>
+        <p>
+          <%= @product.description%>
+        </p>
+      </article>
+    </div>
+
+    <div class="column is-5" data-controller="product-item" >
+      <h3 class="has-text-grey-light"><%= @product.vendor.title %></h3>
+      <h2 class="title is-4"><%= @product.name %></h2>
+      <p class="has-text-dark is-size-4">
+        原價： <span><%= @product.list_price %></span><br>
+        特價： <span><%= @product.sell_price %></span>
+      </p>
+      <hr>
+      <% if @product.skus.any? %>
+        <div class="columns">
+          <div class="column is-3 is-size-4 has-text-right">
+            品項
+          </div>
+          <div class="column is-9 field is-grouped">
+            <div class="select is-fullwidth is-medium">
+              <select data-product-item-target="sku" data-product-item-id="<%= @product.skus.ids %>">
+                <%= options_for_select(@product.skus.map { |p| [p.spec, p.id]}) %>
+              </select>
+              
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="columns">
+        <div class="column is-3 is-size-4 has-text-right">
+          數量
+        </div>
+        <div class="column is-9 field is-grouped">
+          <a href="#" class="button is-white is-medium" data-action="product-item#quantity_minus">-</a>
+          <input type="number" name="quantity" class="input is-medium has-text-centered" value="1" data-product-item-target="quantity">
+          <a href="#" class="button is-white is-medium" data-action="product-item#quantity_plus">+</a>
+        </div>
+      </div>
+      <a href="#" class="button is-primary is-medium is-fullwidth has-text-white" data-action="product-item#addToCart">
+        <span class="button is-link is-hidden" data-product-item-target="addToCartButton" style="background-color: transparent;border:none"></span>加入購物車
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,98 @@
+
+  <% if current_cart.empty? %>
+    <h3 class='subtitle is-5'>目前購物車是空的</h3>
+    <%= link_to '繼續選購' , root_path, class:'button is-small is-block' %>
+  <% else %>
+    <%= link_to cart_path, method: :delete, class:'button is-danger has-text-white is-small', data: { confirm: '確定清空購物車？'} do %>
+      <i class="fas fa-trash-can"></i> &nbsp;清空購物車
+    <% end %>
+    <table class="table cart">
+      <thead class="cart-header">
+        <tr>
+          <th></th>
+          <th>品項</th>
+          <th>數量</th>
+          <th class="has-text-right pl-0">小計</th>
+        </tr>
+      </thead>
+
+      
+      <% current_cart.items.each do |item| %>
+        <tbody data-controller="product-item" data-product-item-id="<%= item.sku_id %>">
+          <tr class="cart-row">
+            <td>
+              <%= link_to remove_item_cart_path(item.sku_id), method: :delete, data: { confirm: '確認刪除？'} do %>
+                <i class="fas fa-trash-can has-text-danger"></i>
+              <% end%>
+            </td>
+            <td class="cart-product-media  cart-product-row">
+              <a class="nowrap m-0" href="#">
+                <%= link_to item.product do %>
+                <div class="media">
+                  <figure class="media-left my-0 ml-0 mr-3">
+                    <p class="image is-64x64">
+                      <%= image_tag item.product.cover_image.variant(resize_to_fit: [64, 64]), style:'object-fit:cover' if item.product.cover_image.attached? %>
+                    </p>
+                  </figure>
+                  <div class="media-content">
+                    <div class="content">
+                      <p>
+                        <strong class="title is-6">
+                          <%= item.product&.name %>
+                        </strong>
+                        <br>
+                        <span class="nowrap tag block is-info is-light">
+                          NT <%= item.product&.sell_price  %>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+              </a>
+            </td>
+            <td class="cart-product-row"  data-cart-page="true">
+              <div class="field has-addons m-0">
+                <p class="control">
+                  <button class="cart-product-button button is-small"  data-action="product-item#quantity_minus">
+                    <div class="icon-text">
+                      <span class="icon">
+                        <i class="fas fa-minus"></i>
+                      </span>
+                    </div>
+                  </button>
+                </p>
+                <p class="control">
+                  <input class="input is-small has-text-centered" style="width:4rem" size='1' type="number" placeholder="<%= item.quantity %>" value="<%= item.quantity %>" data-product-item-target="quantity">
+                </p>
+                <p class="control">
+                  <button class="cart-product-button button is-small"  data-action="product-item#quantity_plus">
+                    <div class="icon-text">
+                      <span class="icon">
+                        <i class="fas fa-plus"></i>
+                      </span>
+                    </div>
+                  </button>
+                </p>
+              </div>
+            </td>
+            <td class="cart-product-subtotal has-text-right nowrap">
+              <div class="is-relative" >
+                <span data-product-item-target="subtotal" data-product-item-price="<%= item.total_price %>">NT <%= item.total_price %></span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+
+      <tfoot>
+        <tr class="cart-price-row is-size-5 has-text-weight-bold">
+          <td colspan="2">總價:</td>
+          <td colspan="2" class="nowrap cart-price-cell has-text-right pl-0">
+            <span data-product-item-target="cartTotal">NT <%= current_cart.total_price %></span>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    
+  <% end %>

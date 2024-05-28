@@ -1,0 +1,12 @@
+@import 'bulma-carousel';
+
+
+
+.navbar-link:not(.is-arrowless):after {
+  border-color: #f7ae9f;
+}
+
+.tabs a:hover {
+  border-bottom-color: #f7ae9f;
+  color: #f7ae9f;
+}

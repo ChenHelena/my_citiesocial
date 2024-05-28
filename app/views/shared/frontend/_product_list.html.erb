@@ -1,0 +1,29 @@
+<section class="product_list section">
+  <section class="container">
+    <% if products.exists? %>
+      <div class="columns is-multiline">
+        <% products.each do |product|%>
+          <div class="column is-4">
+            <div class="card product-item is-shadowless">
+              <div class="card-image">
+                <figure class="image">
+                <%= link_to product do %>
+                  <%= image_tag product.cover_image.variant(resize_to_fit: [430, 290]), style:'height:14rem;object-fit:cover' if product.cover_image.attached? %>
+                <% end %>
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <h4 class="is-size-6"><%= product.vendor.title %></h4>
+                  <p><%= link_to product.name, product_path(product), class:'has-text-dark' %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <h2 class="has-text-centered">目前無商品</h2>
+    <% end %>
+  </section>
+</section>
