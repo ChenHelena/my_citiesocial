@@ -102,6 +102,10 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.1)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.12.0)
     factory_bot (5.2.0)
       activesupport (>= 4.2.0)
@@ -358,6 +362,7 @@ DEPENDENCIES
   cryptojs-rails (~> 2.5, >= 2.5.3)
   database_cleaner (~> 2.0, >= 2.0.2)
   devise (~> 4.9, >= 4.9.4)
+  dotenv-rails
   factory_bot_rails (~> 5.1, >= 5.1.1)
   faker (~> 2.11)
   faraday (~> 2.8.0)
